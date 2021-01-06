@@ -59,7 +59,7 @@ task printVersion {
     }
 }
 
-def gitRepo = "https://github.com/hmcts/div-common-lib"
+def gitRepo = "https://github.com/hmcts/nfdiv-common-lib"
 
 def pomConfig = {
     licenses {
@@ -71,7 +71,7 @@ def pomConfig = {
     }
 
     scm {
-        url "https://github.com/hmcts/div-common-lib"
+        url "https://github.com/hmcts/nfdiv-common-lib"
     }
 }
 
@@ -98,13 +98,13 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             groupId project.group
-            artifactId 'div-common-lib'
+            artifactId 'nfdiv-common-lib'
             version project.version
 
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', 'Divorce common lib')
-                root.appendNode('name', 'Divorce common lib')
+                root.appendNode('description', 'No fault divorce common lib')
+                root.appendNode('name', 'No fault divorce common lib')
                 root.appendNode('url', gitRepo)
                 root.children().last() + pomConfig
             }
@@ -125,7 +125,7 @@ bintray {
     publications = ['Main']
     pkg {
         repo = 'hmcts-maven'
-        name = 'div-common-lib'
+        name = 'nfdiv-common-lib'
         userOrg = 'hmcts'
         licenses = ['MIT']
         vcsUrl = gitRepo
