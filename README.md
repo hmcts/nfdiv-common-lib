@@ -3,7 +3,7 @@ Re-usable features for all divorce java projects
 
 ### Prerequisites
 
-- [JDK 8](https://www.oracle.com/java)
+- [JDK 11](https://www.oracle.com/java)
 
 ## Usage
 
