@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'uk.gov.hmcts.reform'
-version '1.2.4'
+version '1.2.5'
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -188,7 +188,6 @@ dependencies {
     implementation group: 'com.deliveredtechnologies', name: 'rulebook-core', version: '0.9.1'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
     implementation(group: 'io.springfox', name: 'springfox-swagger2', version: springfoxSwagger)
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: springfoxSwagger
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: commonsCollections4
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: commonsLang3
 
