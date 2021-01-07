@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.divorce.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
+@Builder
 public class UserDetails {
 
     private final String id;
