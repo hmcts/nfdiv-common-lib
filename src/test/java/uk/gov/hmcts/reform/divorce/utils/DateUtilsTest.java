@@ -14,10 +14,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static uk.gov.hmcts.reform.divorce.utils.DateUtils.formatDateTimeForCcd;
 import static uk.gov.hmcts.reform.divorce.utils.DateUtils.formatDateTimeForDocument;
 import static uk.gov.hmcts.reform.divorce.utils.DateUtils.formatDateWithCustomerFacingFormat;
