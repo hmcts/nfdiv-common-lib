@@ -2,7 +2,6 @@ package uk.gov.hmcts.reform.divorce.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.divorce.mapper.DivorceCaseToAosCaseMapper;
 import uk.gov.hmcts.reform.divorce.mapper.DivorceCaseToDaCaseMapper;
@@ -17,12 +16,14 @@ import uk.gov.hmcts.reform.divorce.model.ccd.DnRefusalCaseData;
 import uk.gov.hmcts.reform.divorce.model.documentupdate.GeneratedDocumentInfo;
 import uk.gov.hmcts.reform.divorce.model.usersession.DivorceSession;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class CaseFormatterService {
+
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     private final ObjectMapper objectMapper;
     private final DataTransformer dataTransformer;
@@ -32,6 +33,27 @@ public class CaseFormatterService {
     private final DivorceCaseToDnClarificationMapper divorceCaseToDnClarificationMapper;
     private final DivorceCaseToDaCaseMapper divorceCaseToDaCaseMapper;
     private final CoreCaseDataDocumentService coreCaseDataDocumentService;
+
+    public CaseFormatterService(final ObjectMapper objectMapper,
+                                final DataTransformer dataTransformer,
+                                final DataMapTransformer dataMapTransformer,
+                                final DivorceCaseToAosCaseMapper divorceCaseToAosCaseMapper,
+                                final DivorceCaseToDnCaseMapper divorceCaseToDnCaseMapper,
+                                final DivorceCaseToDnClarificationMapper divorceCaseToDnClarificationMapper,
+                                final DivorceCaseToDaCaseMapper divorceCaseToDaCaseMapper,
+                                final CoreCaseDataDocumentService coreCaseDataDocumentService) {
+
+        this.objectMapper = objectMapper;
+        this.objectMapper.setDateFormat(DATE_FORMAT);
+
+        this.dataTransformer = dataTransformer;
+        this.dataMapTransformer = dataMapTransformer;
+        this.divorceCaseToAosCaseMapper = divorceCaseToAosCaseMapper;
+        this.divorceCaseToDnCaseMapper = divorceCaseToDnCaseMapper;
+        this.divorceCaseToDnClarificationMapper = divorceCaseToDnClarificationMapper;
+        this.divorceCaseToDaCaseMapper = divorceCaseToDaCaseMapper;
+        this.coreCaseDataDocumentService = coreCaseDataDocumentService;
+    }
 
     public CoreCaseData transformToCoreCaseDataFormat(final DivorceSession divorceSession) {
         return dataTransformer.transformDivorceCaseDataToCourtCaseData(divorceSession);
@@ -46,7 +68,10 @@ public class CaseFormatterService {
     }
 
     public Map<String, Object> transformToDivorceSession(final Map<String, Object> coreCaseDataMap) {
-        return dataMapTransformer.transformCoreCaseDataToDivorceCaseData(coreCaseDataMap);
+        final CoreCaseData coreCaseData = objectMapper.convertValue(coreCaseDataMap, CoreCaseData.class);
+        final DivorceSession divorceSession = dataTransformer.transformCoreCaseDataToDivorceCaseData(coreCaseData);
+        return objectMapper.convertValue(divorceSession, new TypeReference<>() {
+        });
     }
 
     public Map<String, Object> addDocuments(final Map<String, Object> coreCaseData,
