@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -14,6 +16,8 @@ import uk.gov.hmcts.reform.divorce.model.ccd.ServiceApplication;
 import uk.gov.hmcts.reform.divorce.model.payment.Payment;
 import uk.gov.hmcts.reform.divorce.model.payment.PaymentCollection;
 import uk.gov.hmcts.reform.divorce.model.usersession.corespondent.CoRespondentAnswers;
+import uk.gov.hmcts.reform.divorce.serialization.DivorceSessionDateDeserializer;
+import uk.gov.hmcts.reform.divorce.serialization.DivorceSessionDateSerializer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +68,8 @@ public class DivorceSession {
         value = "The marriage date in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\")")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date marriageDate;
     @ApiModelProperty(/* The spreadsheet does not say what this field means */ allowableValues = "Yes, No")
     private String marriageCanDivorce;
@@ -261,6 +267,8 @@ public class DivorceSession {
         value = "The separation date in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date reasonForDivorceSeperationDate;
     @ApiModelProperty(value = "Is separation date same as or after limit date?", allowableValues = "Yes, No")
     private String reasonForDivorceSeperationDateIsSameOrAfterLimitDate;
@@ -282,6 +290,8 @@ public class DivorceSession {
         value = "Desertion date in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date reasonForDivorceDesertionDate;
     @ApiModelProperty(value = "Did petitioner agree to the desertion?", allowableValues = "Yes, No")
     private String reasonForDivorceDesertionAgreed;
@@ -358,18 +368,24 @@ public class DivorceSession {
 
     private String mostRecentSeparationDate;
 
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date createdDate;
 
     @ApiModelProperty(
         value = "Issue date in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date issueDate;
 
     @ApiModelProperty(
         value = "Due date in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date dueDate;
 
     @ApiModelProperty(value = "Petitioner has obtained a written consent from the respondent?",
@@ -380,12 +396,16 @@ public class DivorceSession {
         value = "Date the petitioner decided the marriage was over, in one of the following formats "
             + "(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", \"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date reasonForDivorceDecisionDate;
 
     @ApiModelProperty(
         value = "Date the petitioner and respondent started living apart, in one of the following formats "
             + "(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", \"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date reasonForDivorceLivingApartDate;
 
     @ApiModelProperty(value = "Respondent contact details to be kept private?", allowableValues = "share, keep")
@@ -457,6 +477,8 @@ public class DivorceSession {
     @ApiModelProperty(value = "Reason for AwaitingDecreeNisi?")
     private String permittedDecreeNisiReason;
     @ApiModelProperty(value = "Respondent submitted AOS date")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date receivedAosFromRespDate;
     @ApiModelProperty(value = "Respondent has submitted AOS")
     private String receivedAosFromResp;
@@ -516,6 +538,8 @@ public class DivorceSession {
         value = "AdulteryFirstFoundDate date in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date adulteryFirstFoundDate;
     @ApiModelProperty(value = "Dn Live apart since event")
     private String livedApartSinceAdultery;
@@ -531,6 +555,8 @@ public class DivorceSession {
         value = "Dn Behaviour most recent incident date in one of the following formats "
             + "(\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", "
             + "\"EEE, dd MMM yyyy HH:mm:ss zzz\", \"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date lastIncidentDate;
     @ApiModelProperty(value = "Dn Behaviour lived apart since event")
     private String livedApartSinceLastIncidentDate;
@@ -570,8 +596,12 @@ public class DivorceSession {
     @ApiModelProperty(value = "Any additional information on the cost order")
     private String costsOrderAdditionalInfo;
     @ApiModelProperty(value = "Date Decree Nisi has been pronounced")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date decreeNisiGrantedDate;
     @ApiModelProperty(value = "Date Decree Absolute can be aplied for")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date decreeAbsoluteEligibleFromDate;
     //Dn Approval Fields Mapping End
     //Dn Bulk Listing Fields Mapping Start
@@ -594,6 +624,8 @@ public class DivorceSession {
         value = "Issue date from previously amended case in one of the following formats (\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\", "
             + "\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\", \"yyyy-MM-dd'T'HH:mm:ss.SSS\", \"EEE, dd MMM yyyy HH:mm:ss zzz\", "
             + "\"yyyy-MM-dd\").")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date previousIssueDate;
 
     @ApiModelProperty(value = "List of previous reasons used for divorce, before amending petition")
@@ -601,10 +633,14 @@ public class DivorceSession {
 
     @ApiModelProperty(
         value = "Date from which the respondent can apply for Decree Absolute.")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date dateRespondentEligibleForDA;
 
     @ApiModelProperty(
         value = "Final date to apply for Decree Absolute.")
+    @JsonDeserialize(using = DivorceSessionDateDeserializer.class)
+    @JsonSerialize(using = DivorceSessionDateSerializer.class)
     private Date dateCaseNoLongerEligibleForDA;
 
     @ApiModelProperty("Reason for why clarification is needed.")

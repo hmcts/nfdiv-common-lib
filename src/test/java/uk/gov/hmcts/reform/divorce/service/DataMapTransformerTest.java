@@ -1,71 +1,84 @@
 package uk.gov.hmcts.reform.divorce.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import uk.gov.hmcts.reform.divorce.model.ccd.CoreCaseData;
 import uk.gov.hmcts.reform.divorce.model.usersession.DivorceSession;
-import uk.gov.hmcts.reform.divorce.utils.ObjectMapperTestUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static uk.gov.hmcts.reform.divorce.utils.ObjectMapperTestUtil.getObjectMapperInstance;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataMapTransformerTest {
 
-    private final ObjectMapper objectMapper = ObjectMapperTestUtil.getObjectMapperInstance();
+    private static final SimpleDateFormat INPUT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-    private DataMapTransformer classUnderTest;
+    @Spy
+    private final ObjectMapper objectMapper = getObjectMapperInstance();
 
+    @Mock
     private DataTransformer dataTransformer;
 
-    private DivorceSession testDivorceSession;
-    private Map<String, Object> testDivorceSessionMap;
+    @InjectMocks
+    private DataMapTransformer dataMapTransformer;
 
-    private CoreCaseData testCoreCaseData;
-    private Map<String, Object> testCoreCaseDataMap;
+    private DivorceSession divorceSession;
+    private Map<String, Object> divorceSessionMap;
+
+    private CoreCaseData coreCaseData;
+    private Map<String, Object> coreCaseDataMap;
 
     @Before
-    public void setUp() {
-        testDivorceSession = new DivorceSession();
-        testDivorceSession.setCaseReference("123");
-        testDivorceSessionMap = objectMapper.convertValue(testDivorceSession, new TypeReference<Map<String, Object>>() {
-        });
+    public void setup() throws Exception {
 
-        testCoreCaseData = new CoreCaseData();
-        testCoreCaseData.setD8caseReference("123");
-        testCoreCaseDataMap = objectMapper.convertValue(testCoreCaseData, new TypeReference<Map<String, Object>>() {
-        });
+        divorceSession = new DivorceSession();
+        divorceSession.setCaseReference("123");
+        divorceSession.setMarriageDate(INPUT_DATE_FORMAT.parse("2021-01-14"));
 
-        dataTransformer = mock(DataTransformer.class);
-        when(dataTransformer.transformDivorceCaseDataToCourtCaseData(eq(testDivorceSession))).thenReturn(testCoreCaseData);
-        when(dataTransformer.transformCoreCaseDataToDivorceCaseData(eq(testCoreCaseData))).thenReturn(testDivorceSession);
-        classUnderTest = new DataMapTransformer(objectMapper, dataTransformer);
+        divorceSessionMap = new HashMap<>();
+        divorceSessionMap.put("expires", 0L);
+        divorceSessionMap.put("caseReference", "123");
+        divorceSessionMap.put("marriageDate", "2021-01-14T00:00:00.000+0000");
+
+        coreCaseData = new CoreCaseData();
+        coreCaseData.setD8caseReference("123");
+        coreCaseData.setD8MarriageDate("2021-01-14");
+
+        coreCaseDataMap = new HashMap<>();
+        coreCaseDataMap.put("D8caseReference", "123");
+        coreCaseDataMap.put("D8MarriageDate", "2021-01-14");
+
+        when(dataTransformer.transformDivorceCaseDataToCourtCaseData(eq(divorceSession))).thenReturn(coreCaseData);
+        when(dataTransformer.transformCoreCaseDataToDivorceCaseData(eq(coreCaseData))).thenReturn(divorceSession);
     }
 
     @Test
     public void shouldCallAdequateMapperForTransformingDivorceCaseDataIntoCoreCaseData() {
-        Map<String, Object> returnedCoreCaseData = classUnderTest.transformDivorceCaseDataToCourtCaseData(testDivorceSessionMap);
+        final Map<String, Object> returnedCoreCaseData = dataMapTransformer.transformDivorceCaseDataToCourtCaseData(divorceSessionMap);
 
-        assertThat(returnedCoreCaseData, equalTo(testCoreCaseDataMap));
-        verify(dataTransformer).transformDivorceCaseDataToCourtCaseData(eq(testDivorceSession));
+        assertThat(returnedCoreCaseData, equalTo(coreCaseDataMap));
+        verify(dataTransformer).transformDivorceCaseDataToCourtCaseData(eq(divorceSession));
     }
 
     @Test
     public void shouldCallAdequateMapperForTransformingCoreCaseDataIntoDivorceCaseData() {
-        Map<String, Object> returnedDivorceCaseData = classUnderTest.transformCoreCaseDataToDivorceCaseData(testCoreCaseDataMap);
+        final Map<String, Object> returnedDivorceCaseData = dataMapTransformer.transformCoreCaseDataToDivorceCaseData(coreCaseDataMap);
 
-        assertThat(returnedDivorceCaseData, equalTo(testDivorceSessionMap));
-        verify(dataTransformer).transformCoreCaseDataToDivorceCaseData(eq(testCoreCaseData));
+        assertThat(returnedDivorceCaseData, equalTo(divorceSessionMap));
+        verify(dataTransformer).transformCoreCaseDataToDivorceCaseData(eq(coreCaseData));
     }
-
 }

@@ -16,14 +16,11 @@ import uk.gov.hmcts.reform.divorce.model.ccd.DnRefusalCaseData;
 import uk.gov.hmcts.reform.divorce.model.documentupdate.GeneratedDocumentInfo;
 import uk.gov.hmcts.reform.divorce.model.usersession.DivorceSession;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class CaseFormatterService {
-
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     private final ObjectMapper objectMapper;
     private final DataTransformer dataTransformer;
@@ -44,8 +41,6 @@ public class CaseFormatterService {
                                 final CoreCaseDataDocumentService coreCaseDataDocumentService) {
 
         this.objectMapper = objectMapper;
-        this.objectMapper.setDateFormat(DATE_FORMAT);
-
         this.dataTransformer = dataTransformer;
         this.dataMapTransformer = dataMapTransformer;
         this.divorceCaseToAosCaseMapper = divorceCaseToAosCaseMapper;
@@ -68,10 +63,7 @@ public class CaseFormatterService {
     }
 
     public Map<String, Object> transformToDivorceSession(final Map<String, Object> coreCaseDataMap) {
-        final CoreCaseData coreCaseData = objectMapper.convertValue(coreCaseDataMap, CoreCaseData.class);
-        final DivorceSession divorceSession = dataTransformer.transformCoreCaseDataToDivorceCaseData(coreCaseData);
-        return objectMapper.convertValue(divorceSession, new TypeReference<>() {
-        });
+        return dataMapTransformer.transformCoreCaseDataToDivorceCaseData(coreCaseDataMap);
     }
 
     public Map<String, Object> addDocuments(final Map<String, Object> coreCaseData,
