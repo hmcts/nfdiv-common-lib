@@ -21,8 +21,6 @@ import uk.gov.hmcts.reform.divorce.model.ccd.DnRefusalCaseData;
 import uk.gov.hmcts.reform.divorce.model.documentupdate.GeneratedDocumentInfo;
 import uk.gov.hmcts.reform.divorce.model.usersession.DivorceSession;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,15 +30,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CaseFormatterServiceTest {
-
-    private static final SimpleDateFormat INPUT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     @Spy
     private ObjectMapper objectMapper;
@@ -115,32 +110,18 @@ public class CaseFormatterServiceTest {
     }
 
     @Test
-    public void shouldTransformCoreCaseDataMapToDivorceSessionMap() throws Exception {
+    public void shouldTransformCoreCaseDataMapToDivorceSessionMap() {
 
-        final CoreCaseData coreCaseData = new CoreCaseData();
-        coreCaseData.setD8caseReference("123");
-        coreCaseData.setD8MarriageDate("2021-01-14");
+        final Map<String, Object> coreCaseData = emptyMap();
+        final Map<String, Object> expectedDivorceSession = emptyMap();
 
-        final HashMap<String, Object> coreCaseDataMap = new HashMap<>();
-        coreCaseDataMap.put("D8caseReference", "123");
-        coreCaseDataMap.put("D8MarriageDate", "2021-01-14");
+        when(dataMapTransformer.transformCoreCaseDataToDivorceCaseData(coreCaseData)).thenReturn(expectedDivorceSession);
 
-        final DivorceSession divorceSession = new DivorceSession();
-        divorceSession.setCaseReference("123");
-        divorceSession.setMarriageDate(INPUT_DATE_FORMAT.parse("2021-01-14"));
+        final Map<String, Object> actualDivorceSession = caseFormatterService.transformToDivorceSession(coreCaseData);
 
-        final HashMap<String, Object> divorceSessionMap = new HashMap<>();
-        divorceSessionMap.put("expires", 0L);
-        divorceSessionMap.put("caseReference", "123");
-        divorceSessionMap.put("marriageDate", "2021-01-14T00:00:00.000+0000");
+        assertThat(actualDivorceSession, is(expectedDivorceSession));
 
-        when(dataTransformer.transformCoreCaseDataToDivorceCaseData(eq(coreCaseData))).thenReturn(divorceSession);
-
-        final Map<String, Object> actualDivorceSession = caseFormatterService.transformToDivorceSession(coreCaseDataMap);
-
-        assertThat(actualDivorceSession, is(divorceSessionMap));
-
-        verify(dataTransformer).transformCoreCaseDataToDivorceCaseData(coreCaseData);
+        verify(dataMapTransformer).transformCoreCaseDataToDivorceCaseData(coreCaseData);
     }
 
     @Test
