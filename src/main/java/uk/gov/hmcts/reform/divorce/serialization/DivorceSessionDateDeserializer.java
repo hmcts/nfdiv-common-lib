@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
@@ -37,23 +38,30 @@ public class DivorceSessionDateDeserializer extends StdDeserializer<Date> {
                             final DeserializationContext deserializationContext) throws IOException {
 
         final JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
-        final String date = jsonNode.textValue();
+        final String dateString = jsonNode.textValue();
 
-        if (null == date) {
+        if (null == dateString) {
             return null;
         }
 
         for (final SimpleDateFormat dateFormat : DATE_FORMATS) {
-            try {
-                return dateFormat.parse(date);
-            } catch (final ParseException e) {
-                //Do nothing and try the next format
+            final Optional<Date> date = parseFrom(dateString, dateFormat);
+            if (date.isPresent()) {
+                return date.get();
             }
         }
 
         throw new JsonParseException(jsonParser,
-            "Unparseable date: \"" + date + "\". Supported formats: " + getDatePatterns());
+            "Unparseable date: \"" + dateString + "\". Supported formats: " + getDatePatterns());
 
+    }
+
+    private Optional<Date> parseFrom(final String date, final SimpleDateFormat dateFormat) {
+        try {
+            return Optional.of(dateFormat.parse(date));
+        } catch (final ParseException e) {
+            return Optional.empty();
+        }
     }
 
     private String getDatePatterns() {
