@@ -16,12 +16,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-import static uk.gov.hmcts.reform.divorce.model.DocumentType.PETITION;
 
 @Service
 @RequiredArgsConstructor
 public class CoreCaseDataDocumentService {
 
+    private static final String PETITION = "petition";
     private static final String D8_DOCUMENTS_GENERATED_CCD_FIELD = "D8DocumentsGenerated";
     private static final String GENERIC_DOCUMENT_TYPE = "other";
 

@@ -31,11 +31,11 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-import static uk.gov.hmcts.reform.divorce.model.DocumentType.PETITION;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CoreCaseDataDocumentServiceTest {
 
+    private static final String PETITION = "petition";
     private static final String D8_DOCUMENTS_GENERATED_CCD_FIELD = "D8DocumentsGenerated";
     private static final String HAL_BINARY_RESPONSE_CONTEXT_PATH =
         (String) ReflectionTestUtils.getField(
