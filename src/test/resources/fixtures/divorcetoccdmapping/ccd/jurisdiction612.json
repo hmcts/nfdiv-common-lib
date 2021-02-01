@@ -205,9 +205,7 @@
   "D8ReasonForDivorceSeperationBeforeMarria": null,
   "D8ReasonForDivorceDesertion": null,
   "D8DerivedReasonForDivorceAdultery3rdAddr": null,
-  "D8Cohort": "onlineSubmissionPrivateBeta",
   "D8InferredPetitionerGender": "male",
   "D8InferredRespondentGender": "female",
-  "D8PetitionerConsent": "YES",
-  "RespondentContactDetailsConfidential": "share"
+  "D8PetitionerConsent": "YES"
 }

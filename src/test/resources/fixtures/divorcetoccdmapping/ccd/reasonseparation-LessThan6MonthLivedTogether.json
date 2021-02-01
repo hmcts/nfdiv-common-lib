@@ -199,7 +199,6 @@
   "D8ReasonForDivorceSeperationBeforeMarria": null,
   "D8ReasonForDivorceDesertion": null,
   "D8DerivedReasonForDivorceAdultery3rdAddr": null,
-  "D8Cohort": "onlineSubmissionPrivateBeta",
   "D8InferredPetitionerGender": "female",
   "D8InferredRespondentGender": "male",
   "D8PetitionerConsent": "YES",
@@ -209,6 +208,5 @@
   "D8SeparationTimeTogetherPermitted": "3 months, 2 weeks and 5 months",
   "D8LivedTogetherMoreTimeThanPermitted": "YES",
   "D8LivedApartSinceSeparation": "YES",
-  "D8SeparationReferenceDate": "01 December 2013",
-  "RespondentContactDetailsConfidential": "share"
+  "D8SeparationReferenceDate": "01 December 2013"
 }
