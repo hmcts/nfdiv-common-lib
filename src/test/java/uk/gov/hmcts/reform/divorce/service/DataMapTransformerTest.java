@@ -50,7 +50,6 @@ public class DataMapTransformerTest {
         divorceSession.setMarriageDate(INPUT_DATE_FORMAT.parse("2021-01-14"));
 
         divorceSessionMap = new HashMap<>();
-        divorceSessionMap.put("expires", 0L);
         divorceSessionMap.put("caseReference", "123");
         divorceSessionMap.put("marriageDate", "2021-01-14T00:00:00.000+0000");
 

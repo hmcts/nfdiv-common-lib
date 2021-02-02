@@ -27,8 +27,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class DivorceSession {
-    @ApiModelProperty(value = "Session expiry timestamp.", hidden = true)
-    private long expires;
     @ApiModelProperty(value = "Family Man case reference")
     private String caseReference;
     @ApiModelProperty(value = "Has petitioners marriage broken down irretrievably?", allowableValues = "Yes, No")
