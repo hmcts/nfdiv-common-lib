@@ -185,5 +185,5 @@
   "DAEligibleFromDate": "2020-02-15",
   "ExtraUnmappedField": "unmapped",
   "AnotherUnmappedField": "should be dropped",
-  "DivorceOrDissolution": "Divorce"
+  "DivorceOrDissolution": "divorce"
 }

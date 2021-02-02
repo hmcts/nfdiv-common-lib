@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import org.apache.commons.collections4.CollectionUtils;
+import uk.gov.hmcts.reform.divorce.model.DivorceOrDissolution;
 import uk.gov.hmcts.reform.divorce.model.ccd.Connections;
 import uk.gov.hmcts.reform.divorce.model.ccd.ServiceApplication;
 import uk.gov.hmcts.reform.divorce.model.payment.Payment;
@@ -681,7 +682,7 @@ public class DivorceSession {
     private String languagePreferenceWelsh;
 
     @JsonProperty("DivorceOrDissolution")
-    private String divorceOrDissolution;
+    private DivorceOrDissolution divorceOrDissolution;
 
     public void setD8Documents(List<UploadedFile> d8Documents) {
         if (CollectionUtils.isNotEmpty(d8Documents)) {

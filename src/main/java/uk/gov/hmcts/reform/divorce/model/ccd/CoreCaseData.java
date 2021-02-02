@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import uk.gov.hmcts.reform.divorce.model.DivorceOrDissolution;
 import uk.gov.hmcts.reform.divorce.model.payment.PaymentCollection;
 
 import java.util.List;
@@ -640,5 +641,5 @@ public class CoreCaseData extends AosCaseData {
     private List<ServiceApplication> serviceApplications;
 
     @JsonProperty("DivorceOrDissolution")
-    private String divorceOrDissolution;
+    private DivorceOrDissolution divorceOrDissolution;
 }
