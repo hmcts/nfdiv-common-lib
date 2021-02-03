@@ -6,7 +6,6 @@
     "httpOnly": true,
     "path": "/"
   },
-  "expires": 1507918688467,
   "screenHasMarriageBroken": "Yes",
   "screenHasRespondentAddress": "Yes",
   "screenHasMarriageCert": "Yes",
