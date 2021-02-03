@@ -653,12 +653,25 @@ public abstract class DivorceCaseToCCDMapper {
 
 
     @AfterMapping
+    protected void mapCohort(DivorceSession divorceSession, @MappingTarget CoreCaseData result) {
+        result.setD8Cohort(dataFormatterConfiguration.getCohort());
+    }
+
+    @AfterMapping
     protected void mapInferredPetitionerGender(DivorceSession divorceSession, @MappingTarget CoreCaseData result) {
         if (Objects.nonNull(divorceSession.getMarriageIsSameSexCouple())
             && Objects.nonNull(divorceSession.getDivorceWho())) {
             result.setD8InferredPetitionerGender(
                 inferredGenderService.getPetitionerGender(divorceSession.getMarriageIsSameSexCouple(),
                     divorceSession.getDivorceWho()));
+        }
+    }
+
+    @AfterMapping
+    protected void mapRespondentContactDetailsConfidential(DivorceSession divorceSession,
+                                                           @MappingTarget CoreCaseData result) {
+        if (Objects.isNull(divorceSession.getRespondentContactDetailsConfidential())) {
+            result.setRespondentContactDetailsConfidential(SHARE_DETAILS);
         }
     }
 

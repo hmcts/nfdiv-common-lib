@@ -198,5 +198,6 @@
   "D8InferredPetitionerGender": "female",
   "D8InferredRespondentGender": "male",
   "D8PetitionerConsent": "YES",
-  "RespondentContactDetailsConfidential": "keep"
+  "RespondentContactDetailsConfidential": "keep",
+  "D8Cohort": "onlineSubmissionPrivateBeta"
 }

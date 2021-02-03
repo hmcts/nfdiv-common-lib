@@ -204,5 +204,6 @@
   "D8SeparationReferenceDate": "06 August 2013",
   "D8LivedApartSinceDesertion": "YES",
   "D8DesertionTimeTogetherPermitted": "3 months, 2 weeks and 5 months",
-  "D8LivedTogetherMoreTimeThanPermittedDesert": "YES"
+  "D8LivedTogetherMoreTimeThanPermittedDesert": "YES",
+  "D8Cohort": "onlineSubmissionPrivateBeta"
 }

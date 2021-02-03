@@ -208,5 +208,7 @@
   "D8SeparationTimeTogetherPermitted": "3 months, 2 weeks and 5 months",
   "D8LivedTogetherMoreTimeThanPermitted": "YES",
   "D8LivedApartSinceSeparation": "YES",
-  "D8SeparationReferenceDate": "06 August 2013"
+  "D8SeparationReferenceDate": "06 August 2013",
+  "D8Cohort": "onlineSubmissionPrivateBeta",
+  "RespondentContactDetailsConfidential": "share"
 }

@@ -2,6 +2,7 @@
   "D8legalProcess": null,
   "D8caseReference": null,
   "createdDate": null,
+  "D8Cohort": "onlineSubmissionPrivateBeta",
   "D8ScreenHasMarriageBroken": "YES",
   "D8ScreenHasRespondentAddress": "YES",
   "D8ScreenHasMarriageCert": "YES",
@@ -209,5 +210,6 @@
   "D8DerivedReasonForDivorceAdultery3rdAddr": null,
   "D8InferredPetitionerGender": "male",
   "D8InferredRespondentGender": "female",
+  "RespondentContactDetailsConfidential": "share",
   "D8PetitionerConsent": "YES"
 }
