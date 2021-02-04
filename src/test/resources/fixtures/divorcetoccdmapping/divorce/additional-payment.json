@@ -6,7 +6,6 @@
     "httpOnly": true,
     "secure": false
   },
-
   "screenHasMarriageBroken": "Yes",
   "screenHasRespondentAddress": "Yes",
   "screenHasMarriageCert": "Yes",
