@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import org.apache.commons.collections4.CollectionUtils;
+import uk.gov.hmcts.reform.divorce.model.DivorceOrDissolution;
 import uk.gov.hmcts.reform.divorce.model.ccd.Connections;
 import uk.gov.hmcts.reform.divorce.model.ccd.ServiceApplication;
 import uk.gov.hmcts.reform.divorce.model.payment.Payment;
@@ -27,8 +28,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class DivorceSession {
-    @ApiModelProperty(value = "Session expiry timestamp.", hidden = true)
-    private long expires;
     @ApiModelProperty(value = "Family Man case reference")
     private String caseReference;
     @ApiModelProperty(value = "Has petitioners marriage broken down irretrievably?", allowableValues = "Yes, No")
@@ -681,6 +680,9 @@ public class DivorceSession {
 
     @ApiModelProperty(value = "Is the language preference Welsh?", allowableValues = "Yes, No")
     private String languagePreferenceWelsh;
+
+    @JsonProperty("divorceOrDissolution")
+    private DivorceOrDissolution divorceOrDissolution;
 
     public void setD8Documents(List<UploadedFile> d8Documents) {
         if (CollectionUtils.isNotEmpty(d8Documents)) {
