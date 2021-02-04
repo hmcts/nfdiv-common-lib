@@ -681,7 +681,7 @@ public class DivorceSession {
     @ApiModelProperty(value = "Is the language preference Welsh?", allowableValues = "Yes, No")
     private String languagePreferenceWelsh;
 
-    @JsonProperty("DivorceOrDissolution")
+    @JsonProperty("divorceOrDissolution")
     private DivorceOrDissolution divorceOrDissolution;
 
     public void setD8Documents(List<UploadedFile> d8Documents) {
