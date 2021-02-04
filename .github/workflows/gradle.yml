@@ -28,7 +28,7 @@ jobs:
         env:
           BINTRAY_USER: jenkins-reform-hmcts
           BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-        run: ./gradlew bintrayUpload -PshouldPublish=true
+        run: ./gradlew bintrayUpload -PshouldPublish=false
       - name: Release
         if: github.event_name != 'pull_request'
         env:
