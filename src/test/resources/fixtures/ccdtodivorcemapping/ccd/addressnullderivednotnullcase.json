@@ -183,6 +183,7 @@
   "D8ReasonForDivorceSeperation": null,
   "D8ReasonForDivorceSeperationBeforeMarria": null,
   "D8ReasonForDivorceDesertion": null,
+  "D8Cohort" : "onlineSubmissionPrivateBeta",
   "D8InferredPetitionerGender": "male",
   "D8InferredRespondentGender": "female",
   "D8PetitionerConsent": "YES"
